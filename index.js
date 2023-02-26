@@ -1,22 +1,3 @@
-function withDescription() {
-    if (this.imc < 18.5) this.imcDescription = "magreza";
-    else if (this.imc <= 24.9) this.imcDescription = "normal";
-    else if (this.imc <= 29.9) this.imcDescription = "sobrepeso";
-    else this.imcDescription = "obesidade";
-
-    return this;
-}
-
-function doCalculateImc(height, weight) {
-    const obj = {};
-    obj.height = height;
-    obj.weight = weight;
-    obj.imc = parseFloat((weight / (height ** 2)).toFixed(2));
-    obj.withDescription = withDescription.bind(obj);
-
-    return obj;
-}
-
 export function calculateImc(height, weight) {
     if (height == null || height == 0) return null;
     if (weight == null || weight == 0) return null;
@@ -42,5 +23,30 @@ export function calculate() {
 
 export function initialize() {
     const button = document.querySelector("button.action");
-    button.addEventListener("click", calculate);
+    if (button) {
+        button.addEventListener("click", calculate);
+    }
+}
+
+function withDescription() {
+    if (this.imc < 18.5) this.imcDescription = "magreza";
+    else if (this.imc <= 24.9) this.imcDescription = "normal";
+    else if (this.imc <= 29.9) this.imcDescription = "sobrepeso";
+    else this.imcDescription = "obesidade";
+
+    return this;
+}
+
+function doCalculateImc(height, weight) {
+    const obj = {};
+    obj.height = height;
+    obj.weight = weight;
+    obj.imc = parseFloat((weight / (height ** 2)).toFixed(2));
+    obj.withDescription = withDescription.bind(obj);
+
+    return obj;
+}
+
+window.onload = function () {
+    initialize();
 }
